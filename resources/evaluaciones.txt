@@ -1,0 +1,26 @@
+Pedro Martinez,The Irishman,8.5
+Pedro Martinez,Roma,9.0
+Pedro Martinez,Tar,7.5
+Pedro Martinez,Oppenheimer,9.5
+Pedro Martinez,Parasite,9.8
+Laura Gomez,The Irishman,7.8
+Laura Gomez,Roma,8.5
+Laura Gomez,Tar,8.0
+Laura Gomez,Barbie,7.0
+Laura Gomez,Dune,8.8
+Roberto Silva,The Irishman,9.0
+Roberto Silva,Parasite,9.5
+Roberto Silva,La La Land,8.5
+Roberto Silva,Oppenheimer,9.2
+Roberto Silva,Roma,8.8
+Claudia Reyes,Tar,8.5
+Claudia Reyes,Barbie,6.5
+Claudia Reyes,Dune,9.0
+Claudia Reyes,La La Land,9.5
+Fernando Castro,Parasite,10.0
+Fernando Castro,Oppenheimer,9.0
+Fernando Castro,The Irishman,8.8
+Fernando Castro,Roma,9.2
+Fernando Castro,Barbie,7.5
+Pedro Martinez,Roma,10.0
+Fernando Castro,Volver,9.0

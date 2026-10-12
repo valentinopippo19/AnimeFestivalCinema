@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090914">
+    <meta name="description" content="Anime Festival Cinema: cartelera, funciones, reservas y festival internacional de anime.">
+
+    <title>Anime Festival Cinema</title>
+
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+    <!-- INTRODUCCIÓN -->
+    <div id="intro" class="video-overlay open">
+        <video
+            id="introVideo"
+            autoplay
+            playsinline
+            preload="auto">
+        </video>
+
+        <div class="video-shade"></div>
+
+        <div class="video-ui">
+            <div class="video-brand">
+                ANIME <b>FEST</b> CINEMA
+            </div>
+
+            <div class="video-sub">
+                Festival Internacional · Solo Anime
+            </div>
+
+            <div class="video-actions">
+                <button class="btn" onclick="enterSite()">
+                    ENTRAR AL FESTIVAL
+                </button>
+
+                <button class="btn secondary" onclick="skipIntro()">
+                    SALTAR INTRO
+                </button>
+
+                <button class="btn secondary" onclick="activateIntroAudio()">
+                    ACTIVAR SONIDO
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVEGACIÓN -->
+    <header class="top">
+        <nav>
+            <div class="brand">
+                ANIME<b>FEST</b> CINEMA
+            </div>
+
+            <a href="#cartelera">Cartelera</a>
+            <a href="#funciones">Funciones</a>
+            <a href="#festival">Festival</a>
+            <a href="#gestion">Gestión</a>
+            <a href="#ia">IA</a>
+            <a href="#cuenta">Mi cuenta</a>
+
+            <div class="spacer"></div>
+
+            <span id="userLabel" class="muted"></span>
+
+            <button
+                class="btn secondary"
+                id="loginBtn"
+                onclick="openAuth('login')">
+                Iniciar sesión
+            </button>
+
+            <button
+                class="btn"
+                id="registerBtn"
+                onclick="openAuth('register')">
+                Crear cuenta
+            </button>
+
+            <button
+                class="btn secondary"
+                id="logoutBtn"
+                style="display: none;"
+                onclick="logout()">
+                Salir
+            </button>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- PORTADA -->
+        <section class="hero">
+            <div>
+                <div class="eyebrow">
+                    FESTIVAL INTERNACIONAL · SOLO ANIME
+                </div>
+
+                <h1>
+                    El anime se vive<br>
+                    en pantalla grande.
+                </h1>
+
+                <p>
+                    Descubrí películas de anime, fichas completas,
+                    funciones presenciales y streaming, programación
+                    internacional, jurados, premios y reservas de entradas.
+                </p>
+
+                <button class="btn" onclick="scrollToId('cartelera')">
+                    Ver cartelera
+                </button>
+            </div>
+        </section>
+
+        <!-- CARTELERA -->
+        <section id="cartelera" class="section">
+            <div class="section-head">
+                <div>
+                    <h2>Cartelera oficial</h2>
+
+                    <div class="muted">
+                        Imagen, título, descripción, director, elenco,
+                        género, duración y valoración.
+                    </div>
+                </div>
+
+                <input
+                    id="search"
+                    class="input"
+                    type="search"
+                    placeholder="Buscar película..."
+                    oninput="renderMovies()">
+            </div>
+
+            <div id="movies" class="grid"></div>
+        </section>
+
+        <!-- FUNCIONES Y ENTRADAS -->
+        <section id="funciones" class="section">
+            <div class="section-head">
+                <div>
+                    <h2>Funciones y venta de entradas</h2>
+
+                    <div class="muted">
+                        Funciones presenciales con selección de butacas
+                        o streaming con código de acceso único.
+                    </div>
+                </div>
+
+                <select
+                    id="movieFilter"
+                    class="select"
+                    onchange="renderShows()">
+                    <option value="">Todas las películas</option>
+                </select>
+            </div>
+
+            <div id="shows" class="schedule"></div>
+        </section>
+
+        <!-- FESTIVAL -->
+        <section id="festival" class="section">
+            <div class="section-head">
+                <div>
+                    <h2>Ediciones, secciones y premios</h2>
+
+                    <div class="muted">
+                        Competencia Oficial · Cine Independiente ·
+                        Cortometraje · Nuevos Talentos.
+                    </div>
+                </div>
+            </div>
+
+            <div id="festivalData" class="festival-grid"></div>
+        </section>
+
+        <!-- PREMIOS DEL PÚBLICO -->
+        <section id="publico" class="section">
+            <div class="section-head">
+                <div>
+                    <h2>Premio del Público</h2>
+                    <div class="muted">Votá de 1 a 5 estrellas. Solo pueden votar espectadores con una entrada para esa película y una vez por película.</div>
+                </div>
+            </div>
+            <div id="publicVoting" class="grid"></div>
+        </section>
+
+        <!-- GESTIÓN COMPLETA DEL FESTIVAL -->
+        <section id="gestion" class="section">
+            <div class="section-head">
+                <div>
+                    <h2>Gestión completa · Anime Festival Cinema</h2>
+                    <div class="muted">
+                        Panel web equivalente a las tablas y operaciones del proyecto original:
+                        ediciones, secciones, salas, películas, actores, directores, jurados,
+                        evaluaciones, votación del público, funciones, espectadores, entradas y abonos.
+                    </div>
+                </div>
+                <button class="btn" onclick="loadAdmin()">Actualizar tablas</button>
+            </div>
+
+            <div class="admin-grid">
+                <article class="admin-card">
+                    <h3>Agregar edición</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/edition')">
+                        <input class="input" name="year" type="number" placeholder="Año" required>
+                        <input class="input" name="city" placeholder="Ciudad" required>
+                        <input class="input" name="start" type="date" required>
+                        <input class="input" name="end" type="date" required>
+                        <button class="btn">Agregar edición</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Agregar sección / premio</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/section')">
+                        <input class="input" name="year" type="number" placeholder="Edición" required>
+                        <select class="select" name="type" required>
+                            <option value="COMPETENCIA_OFICIAL">Competencia Oficial</option>
+                            <option value="CINE_INDEPENDIENTE">Cine Independiente</option>
+                            <option value="CORTOMETRAJE">Cortometraje</option>
+                            <option value="NUEVOS_TALENTOS">Nuevos Talentos</option>
+                        </select>
+                        <input class="input" name="award" placeholder="Nombre del premio" required>
+                        <input class="input" name="description" placeholder="Descripción del premio">
+                        <button class="btn">Crear sección</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Agregar sala</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/room')">
+                        <input class="input" name="name" placeholder="Nombre de sala" required>
+                        <input class="input" name="capacity" type="number" min="1" placeholder="Butacas" required>
+                        <button class="btn">Agregar sala</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Agregar director de anime</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/director')">
+                        <input class="input" name="name" placeholder="Nombre" required>
+                        <input class="input" name="email" type="email" placeholder="Email" required>
+                        <input class="input" name="country" placeholder="Nacionalidad" required>
+                        <button class="btn">Agregar director</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Agregar actor / actriz de voz</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/actor')">
+                        <input class="input" name="name" placeholder="Nombre" required>
+                        <input class="input" name="email" type="email" placeholder="Email" required>
+                        <input class="input" name="country" placeholder="Nacionalidad" required>
+                        <button class="btn">Agregar actor</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Agregar película anime</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/movie')">
+                        <input class="input" name="title" placeholder="Título" required>
+                        <input class="input" name="genre" placeholder="Género" required>
+                        <input class="input" name="duration" type="number" min="1" placeholder="Duración (min)" required>
+                        <input class="input" name="director" list="directorOptions" placeholder="Director" required>
+                        <input class="input" name="actors" placeholder="Actores separados por ;">
+                        <input class="input" name="image" placeholder="/assets/posters/archivo.jpg">
+                        <textarea class="input" name="description" placeholder="Descripción / sinopsis"></textarea>
+                        <button class="btn">Agregar película</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Asociar actor a película</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/movie/actor')">
+                        <input class="input" name="movie" list="movieOptions" placeholder="Película anime" required>
+                        <input class="input" name="actor" list="actorOptions" placeholder="Actor / actriz" required>
+                        <button class="btn">Asociar</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Agregar jurado</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/jury')">
+                        <input class="input" name="name" placeholder="Nombre" required>
+                        <input class="input" name="email" type="email" placeholder="Email" required>
+                        <input class="input" name="country" placeholder="Nacionalidad" required>
+                        <button class="btn">Agregar jurado</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Registrar evaluación del jurado</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/evaluation')">
+                        <input class="input" name="jury" list="juryOptions" placeholder="Jurado" required>
+                        <input class="input" name="movie" list="movieOptions" placeholder="Película" required>
+                        <input class="input" name="score" type="number" min="0" max="10" step="0.1" placeholder="Puntaje 0-10" required>
+                        <button class="btn">Evaluar</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Asociar película a sección</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/section/movie')">
+                        <input class="input" name="year" type="number" placeholder="Edición" required>
+                        <select class="select" name="type">
+                            <option value="COMPETENCIA_OFICIAL">Competencia Oficial</option>
+                            <option value="CINE_INDEPENDIENTE">Cine Independiente</option>
+                            <option value="CORTOMETRAJE">Cortometraje</option>
+                            <option value="NUEVOS_TALENTOS">Nuevos Talentos</option>
+                        </select>
+                        <input class="input" name="movie" list="movieOptions" placeholder="Película anime" required>
+                        <button class="btn">Asociar película</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Programar función</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/showtime')">
+                        <input class="input" name="movie" list="movieOptions" placeholder="Película" required>
+                        <select class="select" name="type" onchange="toggleShowForm(this)">
+                            <option value="presencial">Presencial</option>
+                            <option value="streaming">Streaming</option>
+                        </select>
+                        <input class="input" name="date" type="date" required>
+                        <input class="input" name="time" type="time" required>
+                        <input class="input" name="city" placeholder="Ciudad" required>
+                        <input class="input" name="country" placeholder="País" required>
+                        <input class="input show-room" name="room" list="roomOptions" placeholder="Sala">
+                        <input class="input show-capacity" name="capacity" type="number" min="1" placeholder="Capacidad streaming" style="display:none">
+                        <input class="input show-link" name="link" placeholder="Enlace streaming" style="display:none">
+                        <button class="btn">Programar función</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Agregar espectador</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/spectator')">
+                        <input class="input" name="name" placeholder="Nombre" required>
+                        <input class="input" name="email" type="email" placeholder="Email" required>
+                        <input class="input" name="country" placeholder="Nacionalidad" required>
+                        <button class="btn">Agregar espectador</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Comprar abono / bono</h3>
+                    <form class="form compact" onsubmit="buyPass(event)">
+                        <input class="input" name="spectator" list="spectatorOptions" placeholder="Espectador" required>
+                        <select class="select" name="type" onchange="togglePassForm(this)">
+                            <option value="TRES_DIAS">Abono 3 días</option>
+                            <option value="FULL">Abono Full</option>
+                            <option value="STREAMING">Abono Streaming</option>
+                        </select>
+                        <select class="select" name="tariff">
+                            <option value="GENERAL">General</option>
+                            <option value="ESTUDIANTE">Estudiante</option>
+                            <option value="JUBILADO">Jubilado</option>
+                        </select>
+                        <input class="input pass-days" name="days" placeholder="YYYY-MM-DD, YYYY-MM-DD, YYYY-MM-DD">
+                        <button class="btn">Comprar abono</button>
+                    </form>
+                </article>
+
+                <article class="admin-card">
+                    <h3>Reservar con abono</h3>
+                    <form class="form compact" onsubmit="adminSubmit(event,'/api/admin/pass/reserve')">
+                        <input class="input" name="pass" list="passOptions" placeholder="Código de abono" required>
+                        <input class="input" name="showtimeId" type="number" min="0" placeholder="ID de función" required>
+                        <input class="input pass-seat" name="seat" type="number" min="1" placeholder="Butaca presencial">
+                        <button class="btn">Reservar con abono</button>
+                    </form>
+                </article>
+            </div>
+
+            <div class="admin-tables">
+                <div class="table-wrap"><h3>Películas anime</h3><table><thead><tr><th>Título</th><th>Director</th><th>Género</th><th>Duración</th><th>Jurado</th><th>Público</th><th>Votos</th><th>Video</th></tr></thead><tbody id="adminMovies"></tbody></table></div>
+                <div class="table-wrap"><h3>Actores</h3><table><thead><tr><th>Nombre</th><th>Nacionalidad</th><th>Películas</th></tr></thead><tbody id="adminActors"></tbody></table></div>
+                <div class="table-wrap"><h3>Directores</h3><table><thead><tr><th>Nombre</th><th>Nacionalidad</th><th>Películas</th></tr></thead><tbody id="adminDirectors"></tbody></table></div>
+                <div class="table-wrap"><h3>Jurados y evaluaciones</h3><table><thead><tr><th>Jurado</th><th>Nacionalidad</th><th>Evaluaciones</th></tr></thead><tbody id="adminJuries"></tbody></table></div>
+                <div class="table-wrap"><h3>Evaluaciones</h3><table><thead><tr><th>Jurado</th><th>Película</th><th>Puntaje</th></tr></thead><tbody id="adminEvaluations"></tbody></table></div>
+                <div class="table-wrap"><h3>Votos del público</h3><table><thead><tr><th>Espectador</th><th>Película</th><th>Estrellas</th></tr></thead><tbody id="adminVotes"></tbody></table></div>
+                <div class="table-wrap"><h3>Ediciones, secciones y premios</h3><table><thead><tr><th>Edición</th><th>Sección</th><th>Premio</th><th>Ganadora jurado</th><th>Premio público</th><th>Películas</th></tr></thead><tbody id="adminEditions"></tbody></table></div>
+                <div class="table-wrap"><h3>Salas</h3><table><thead><tr><th>Sala</th><th>Capacidad</th></tr></thead><tbody id="adminRooms"></tbody></table></div>
+                <div class="table-wrap"><h3>Espectadores</h3><table><thead><tr><th>Nombre</th><th>Email</th><th>Entradas</th><th>Abonos</th></tr></thead><tbody id="adminSpectators"></tbody></table></div>
+                <div class="table-wrap"><h3>Entradas vendidas</h3><table><thead><tr><th>Código</th><th>Película</th><th>Espectador</th><th>Tipo</th><th>Detalle</th><th>Precio</th></tr></thead><tbody id="adminEntries"></tbody></table></div>
+                <div class="table-wrap"><h3>Abonos / bonos</h3><table><thead><tr><th>Código</th><th>Tipo</th><th>Espectador</th><th>Tarifa</th><th>Precio</th><th>Reservas</th></tr></thead><tbody id="adminPasses"></tbody></table></div>
+            </div>
+
+            <datalist id="movieOptions"></datalist>
+            <datalist id="directorOptions"></datalist>
+            <datalist id="actorOptions"></datalist>
+            <datalist id="juryOptions"></datalist>
+            <datalist id="roomOptions"></datalist>
+            <datalist id="spectatorOptions"></datalist>
+            <datalist id="passOptions"></datalist>
+        </section>
+
+        <!-- RECOMENDADOR DE IA -->
+        <section id="ia" class="section">
+            <div class="section-head">
+                <div>
+                    <h2>IA · Recomendador Anime</h2>
+
+                    <div class="muted">
+                        Recomendaciones basadas en el catálogo y
+                        las puntuaciones del jurado.
+                    </div>
+                </div>
+
+                <button class="btn cyan" onclick="loadRecommendations()">
+                    Recomendarme
+                </button>
+            </div>
+
+            <div id="recommendations" class="grid"></div>
+        </section>
+
+        <!-- CUENTA E HISTORIAL -->
+        <section id="cuenta" class="section">
+            <div class="section-head">
+                <div>
+                    <h2>Mi cuenta</h2>
+
+                    <div class="muted">
+                        Historial de entradas vendidas y códigos de acceso.
+                    </div>
+                </div>
+
+                <button
+                    class="btn secondary"
+                    onclick="loadHistory()">
+                    Actualizar historial
+                </button>
+            </div>
+
+            <div id="history" class="history"></div>
+        </section>
+
+        <!-- ESTADÍSTICAS -->
+        <section class="section">
+            <div id="stats" class="stats"></div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="footer">
+        <div>
+            <b>Anime Festival Cinema</b><br>
+
+            Proyecto POO Java · Web MVC · Service Layer · Repository ·
+            Factory/Seeder · Strategy · Observer · Singleton · Facade
+        </div>
+
+        <button class="btn secondary" onclick="exitSite()">
+            SALIR DEL FESTIVAL
+        </button>
+    </footer>
+
+    <!-- MODAL DE AUTENTICACIÓN -->
+    <div id="trailer" class="modal" onclick="if(event.target===this) closeTrailer()">
+        <div class="modal-box wide trailer-modal">
+            <button class="close" onclick="closeTrailer()">×</button>
+            <h2 id="trailerTitle">Trailer</h2>
+            <div class="trailer-frame-wrap">
+                <iframe id="trailerFrame" title="Trailer de película" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                <div id="trailerFallback" class="trailer-fallback"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="auth" class="modal">
+        <div class="modal-box">
+            <button
+                class="close"
+                type="button"
+                onclick="closeAuth()"
+                aria-label="Cerrar">
+                ×
+            </button>
+
+            <h2 id="authTitle">Iniciar sesión</h2>
+
+            <form class="form" onsubmit="submitAuth(event)">
+                <input
+                    id="name"
+                    class="input"
+                    type="text"
+                    placeholder="Nombre completo"
+                    autocomplete="name">
+
+                <input
+                    id="country"
+                    class="input"
+                    type="text"
+                    placeholder="Nacionalidad"
+                    autocomplete="country-name">
+
+                <input
+                    id="email"
+                    class="input"
+                    type="email"
+                    placeholder="Email"
+                    autocomplete="email"
+                    required>
+
+                <input
+                    id="password"
+                    class="input"
+                    type="password"
+                    placeholder="Contraseña (mín. 6 caracteres)"
+                    autocomplete="current-password"
+                    minlength="6"
+                    required>
+
+                <button
+                    class="btn"
+                    id="authSubmit"
+                    type="submit">
+                    Ingresar
+                </button>
+            </form>
+
+            <p id="authSwitch" class="muted"></p>
+        </div>
+    </div>
+
+    <!-- MODAL DE RESERVA -->
+    <div id="reserve" class="modal">
+        <div class="modal-box wide">
+            <button
+                class="close"
+                type="button"
+                onclick="closeReserve()"
+                aria-label="Cerrar">
+                ×
+            </button>
+
+            <h2 id="reserveTitle">Reservar</h2>
+
+            <div id="reserveInfo" class="muted"></div>
+
+            <!-- SELECCIÓN DE BUTACAS -->
+            <div id="seatArea">
+                <div class="screen">
+                    PANTALLA
+                </div>
+
+                <div class="legend">
+                    <span>Disponible</span>
+                    <span class="legend-occ">Ocupada</span>
+                    <span class="legend-sel">Seleccionada</span>
+                </div>
+
+                <div id="seatMap" class="seat-map"></div>
+            </div>
+
+            <!-- RESERVA DE STREAMING -->
+            <div
+                id="streamArea"
+                class="stream-box"
+                style="display: none;">
+                Tu entrada de streaming genera un código de acceso
+                único al confirmar.
+            </div>
+
+            <div class="form compact" style="margin-top:18px;">
+                <label class="muted" for="reserveTariff">Tarifa</label>
+                <select id="reserveTariff" class="select">
+                    <option value="GENERAL">General</option>
+                    <option value="ESTUDIANTE">Estudiante · 30% descuento</option>
+                    <option value="JUBILADO">Jubilado · 40% descuento</option>
+                </select>
+                <div id="reservePrice" class="price-preview"></div>
+            </div>
+
+            <button
+                id="confirmBtn"
+                class="btn"
+                type="button"
+                style="width: 100%; margin-top: 20px;"
+                onclick="confirmReservation()">
+                Confirmar reserva
+            </button>
+        </div>
+    </div>
+
+    <!-- VIDEO DE CIERRE -->
+    <div id="outro" class="video-overlay">
+        <video
+            id="outroVideo"
+            playsinline
+            preload="auto">
+        </video>
+
+        <div class="video-shade"></div>
+
+        <div class="video-ui">
+            <div class="video-brand">
+                GRACIAS POR VISITAR
+            </div>
+
+            <div class="video-sub">
+                Anime Festival Cinema
+            </div>
+
+            <div class="video-actions">
+                <button class="btn" onclick="closeOutro()">
+                    SALIR Y CERRAR
+                </button>
+
+                <button class="btn secondary" onclick="stopOutro()">
+                    CORTAR VIDEO
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICACIONES -->
+    <div
+        id="toast"
+        class="toast"
+        role="status"
+        aria-live="polite">
+    </div>
+
+    <!-- JAVASCRIPT PRINCIPAL -->
+    <script src="/app.js" defer></script>
+
+</body>
+</html>
