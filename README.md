@@ -446,6 +446,20 @@ Las siguientes imágenes se incluyen como referencias visuales de las películas
 
 ![Pretty Guardian Sailor Moon Cosmos](https://github.com/user-attachments/assets/ea7fe6b8-f147-4b26-9fcc-9bd2fd6618e3)
 
+## Trailers de peliculas
+
+https://github.com/user-attachments/assets/a01ef482-6b27-49d5-ac08-6e7535675ad5
+
+https://github.com/user-attachments/assets/9970fb0a-447c-4d37-9a72-7f52bb172c4d
+
+https://github.com/user-attachments/assets/17216215-d7f3-4ca5-a7dd-d1a3c2c14f0a
+
+https://github.com/user-attachments/assets/e8aca9d7-8602-4e54-a45a-0909cc34e1f9
+
+https://github.com/user-attachments/assets/9d1c68c1-12b9-4f0c-b00b-f6b52cd9f5ec
+
+https://github.com/user-attachments/assets/7fc29e3c-82f6-4932-8142-085056a917be
+
 ---
 
 **Anime Festival Cinema — Proyecto Final de Programación Orientada a Objetos en Java.**
