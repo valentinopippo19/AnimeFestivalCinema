@@ -24,6 +24,7 @@ El proyecto está desarrollado en Java y cuenta con una interfaz web basada en H
 - [Videos del festival](#videos-del-festival)
 - [Películas y recursos visuales](#películas-y-recursos-visuales)
 - [Trailers](#trailers-de-peliculas)
+- [Waifu](#Waifu-del-repositorio-Kurumi-Tokisaki)
 
 ## Características principales
 
