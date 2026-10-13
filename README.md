@@ -434,7 +434,7 @@ La conservación de las clases originales permite mantener la evolución del tra
 
 [Ver recurso de cierre](https://github.com/user-attachments/assets/8b5fd872-92ba-4076-999f-3ded585ec7d1)
 
-## Waifu del repositorio--Kurumi Tokisaki
+## Waifu del repositorio-Kurumi Tokisaki
 
 <img width="735" height="441" alt="Kurumi" src="https://github.com/user-attachments/assets/d4be520c-0176-4214-a6d1-e75e5e72e64e" />
 
