@@ -23,6 +23,7 @@ El proyecto está desarrollado en Java y cuenta con una interfaz web basada en H
 - [Nota sobre el TP original](#nota-sobre-el-tp-original)
 - [Videos del festival](#videos-del-festival)
 - [Películas y recursos visuales](#películas-y-recursos-visuales)
+- [Trailers](#trailers-de-peliculas)
 
 ## Características principales
 
