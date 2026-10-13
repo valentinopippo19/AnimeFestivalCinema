@@ -1,4 +1,4 @@
-# Anime Festival Cinema — Proyecto Final POO Java
+# Anime Festival Cinema — Proyecto Final PROCESO DE DESARROLLO DE SOFTWARE
 
 Versión web de un sistema de gestión de un Festival Internacional de Cine, adaptado exclusivamente a películas de anime.
 
@@ -463,4 +463,4 @@ https://github.com/user-attachments/assets/7fc29e3c-82f6-4932-8142-085056a917be
 
 ---
 
-**Anime Festival Cinema — Proyecto Final de Programación Orientada a Objetos en Java.**
+**Anime Festival Cinema — Proyecto Final de PROCESO DE DESARROLLO DE SOFTWARE en Java.**
