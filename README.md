@@ -468,6 +468,10 @@ https://github.com/user-attachments/assets/9d1c68c1-12b9-4f0c-b00b-f6b52cd9f5ec
 
 https://github.com/user-attachments/assets/7fc29e3c-82f6-4932-8142-085056a917be
 
----
+## Diagramas de clases
+
+<img width="1536" height="1024" alt="Diagrama UML del Sistema de Películas" src="https://github.com/user-attachments/assets/ab835597-38fd-49a2-bdb7-552a7d6582df" />
+
+<img width="1536" height="1024" alt="Diagrama UML del Festival de Anime" src="https://github.com/user-attachments/assets/3a0bfd77-83ce-4325-9b05-15bf4d95dc99" />
 
 **Anime Festival Cinema — Proyecto Final de PROCESO DE DESARROLLO DE SOFTWARE en Java.**
